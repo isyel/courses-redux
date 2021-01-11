@@ -7,7 +7,6 @@ const AuthorsList = ({ authors, onDeleteClick }) => (
 		<thead>
 			<tr>
 				<th />
-				<th />
 				<th>ID</th>
 				<th>Author Name</th>
 				<th />
