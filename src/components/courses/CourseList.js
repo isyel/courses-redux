@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { MDBDataTable } from "mdbreact";
+import { Link } from "react-router-dom";
 
 const CourseList = ({ courses, onDeleteClick }) => {
 	const [data, setData] = useState({});
@@ -16,7 +17,7 @@ const CourseList = ({ courses, onDeleteClick }) => {
 						Watch
 					</a>
 				),
-				title: course.title,
+				title: <Link to={"/course/" + course.slug}>{course.title}</Link>,
 				authorName: course.authorName,
 				category: course.category,
 				action: (

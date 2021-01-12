@@ -8,6 +8,7 @@ import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
+import UndoRedo from "../common/UndoRedo";
 
 class CoursesPage extends React.Component {
 	state = {
@@ -45,12 +46,21 @@ class CoursesPage extends React.Component {
 					<Spinner />
 				) : (
 					<>
-						<button
-							style={{ marginBottom: 20 }}
-							className="btn btn-primary add-course"
-							onClick={() => this.setState({ redirectToAddCoursePage: true })}>
-							Add Course
-						</button>
+						<div className="row">
+							<div className="col-sm">
+								<button
+									style={{ marginBottom: 20 }}
+									className="btn btn-primary add-course"
+									onClick={() =>
+										this.setState({ redirectToAddCoursePage: true })
+									}>
+									Add Course
+								</button>
+							</div>
+							<div className="col-sm text-right">
+								<UndoRedo />
+							</div>
+						</div>
 						<CourseList
 							onDeleteClick={this.handleDeleteCourse}
 							courses={this.props.courses}
@@ -72,17 +82,18 @@ CoursesPage.propTypes = {
 function mapStateToProps(state) {
 	return {
 		courses:
-			state.authors.length === 0
+			state.authors.present.length === 0
 				? []
-				: state.courses.map((course) => {
+				: state.courses.present.map((course) => {
 						return {
 							...course,
-							authorName: state.authors.find((a) => a.id === course.authorId)
-								.name,
+							authorName: state.authors.present.find(
+								(a) => a.id === course.authorId
+							).name,
 						};
 						// eslint-disable-next-line no-mixed-spaces-and-tabs
 				  }),
-		authors: state.authors,
+		authors: state.authors.present,
 		loading: state.apiCallsInProgress > 0,
 	};
 }

@@ -100,12 +100,12 @@ export function getAuthorBySlug(authors, slug) {
 function mapStateToProps(state, ownProps) {
 	const slug = ownProps.match.params.slug;
 	const author =
-		slug && state.authors.length > 0
-			? getAuthorBySlug(state.authors, slug)
+		slug && state.authors.present.length > 0
+			? getAuthorBySlug(state.authors.present, slug)
 			: newAuthor;
 	return {
 		author,
-		authors: state.authors,
+		authors: state.authors.present,
 		loading: state.apiCallsInProgress > 0,
 	};
 }

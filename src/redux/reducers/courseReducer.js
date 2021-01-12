@@ -1,7 +1,8 @@
 import * as types from "../actions/actionTypes";
 import initialState from "./initialState";
+import undoable, { distinctState } from "redux-undo";
 
-export default function courseReducer(state = initialState.courses, action) {
+function courseReducer(state = initialState.courses, action) {
 	switch (action.type) {
 		case types.CREATE_COURSE_SUCCESS:
 			return [...state, { ...action.course }];
@@ -17,3 +18,9 @@ export default function courseReducer(state = initialState.courses, action) {
 			return state;
 	}
 }
+
+const undoableTodos = undoable(courseReducer, {
+	filter: distinctState,
+});
+
+export default undoableTodos;

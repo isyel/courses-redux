@@ -114,16 +114,16 @@ export function getCourseBySlug(courses, slug) {
 function mapStateToProps(state, ownProps) {
 	const slug = ownProps.match.params.slug;
 	const course =
-		slug && state.courses.length > 0
-			? getCourseBySlug(state.courses, slug)
+		slug && state.courses.present.length > 0
+			? getCourseBySlug(state.courses.present, slug)
 			: newCourse;
 	if (course == null) {
 		ownProps.history.push("/404");
 	}
 	return {
 		course,
-		courses: state.courses,
-		authors: state.authors,
+		courses: state.courses.present,
+		authors: state.authors.present,
 		loading: state.apiCallsInProgress > 0,
 	};
 }

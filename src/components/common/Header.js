@@ -45,7 +45,7 @@ Header.propTypes = {
 
 function mapStateToProps(state) {
 	return {
-		courses: state.courses,
+		courses: state.courses.present,
 	};
 }
 

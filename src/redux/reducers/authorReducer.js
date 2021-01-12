@@ -1,7 +1,8 @@
 import * as types from "../actions/actionTypes";
 import initialState from "./initialState";
+import undoable, { distinctState } from "redux-undo";
 
-export default function authorReducer(state = initialState.authors, action) {
+function authorReducer(state = initialState.authors, action) {
 	switch (action.type) {
 		case types.CREATE_AUTHOR_SUCCESS:
 			return [...state, { ...action.author }];
@@ -17,3 +18,9 @@ export default function authorReducer(state = initialState.authors, action) {
 			return state;
 	}
 }
+
+const undoableTodos = undoable(authorReducer, {
+	filter: distinctState,
+});
+
+export default undoableTodos;
